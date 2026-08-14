@@ -1,0 +1,42 @@
+bundle:
+  name: databricks-metadata-driven-ingestion
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: Unity Catalog catalog used by the project.
+    default: workspace
+  metadata_schema:
+    description: Schema for source configuration and ingestion state.
+    default: metadata
+  ops_schema:
+    description: Schema for audit and quarantine tables.
+    default: ops
+  bronze_schema:
+    description: Schema for Bronze target tables and the raw Volume.
+    default: bronze
+  raw_volume:
+    description: Managed Volume used for file landing data.
+    default: md_ingestion_raw
+
+artifacts:
+  default:
+    type: whl
+    path: .
+    build: python setup.py bdist_wheel
+
+workspace:
+  root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+
+targets:
+  dev:
+    mode: development
+    default: true
+    variables:
+      catalog: workspace
+      metadata_schema: metadata
+      ops_schema: ops
+      bronze_schema: bronze
+      raw_volume: md_ingestion_raw
