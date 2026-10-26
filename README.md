@@ -1,5 +1,10 @@
 # Databricks Metadata-Driven Ingestion Framework
 
+## Architecture
+
+![Databricks metadata-driven ingestion architecture](docs/images/architecture.svg)
+
+
 A portfolio and learning project that demonstrates a **metadata-driven ingestion framework on Databricks**.
 
 Instead of writing one ingestion function per source, a Delta control table defines how each source is read, validated, and written. FILE, database, and REST API sources all feed the same downstream quality, load, state, audit, and quarantine pipeline.
